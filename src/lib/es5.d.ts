@@ -48,3 +48,92 @@ interface BooleanConstructor {
 }
 
 declare var Boolean: BooleanConstructor;
+
+// ------------------ Utility Types ------------------
+
+/**
+ * @description Constructs a type with all properties of `T` set to optional,
+ * this utility will return a type that represents all subsets of a given type.
+ * @example
+ * 
+ * ``` typescript
+ * interface Todo {
+ *   title: string;
+ *   description: string;
+ * }
+ * 
+ * function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>): Todo {
+ *   return { ...todo, ...fieldsToUpdate };
+ * }
+ * ```
+ */
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+}
+
+/**
+ * @description Constructs a type consisting of all properties of `T` set
+ * to required. The opposite of `Partial<T>`.
+ * @example
+ * 
+ * ``` typescript
+ * interface Props {
+ *   a?: number;
+ *   b?: string;
+ * }
+ * 
+ * const obj: Required<Props> = {
+ *   a: 5,
+ *   b: "These two properties are required"
+ * }
+ * ```
+ */
+type Required<T> = {
+  [P in keyof T]-?: T[P];
+}
+
+/**
+ * @description Constructs a type with all properties of `T` set to `readonly`,
+ * meaning the properties of the constructed type cannot be reassigned.
+ * @example
+ * 
+ * ``` typescript
+ * interface Todo {
+ *   title: string;
+ * }
+ * 
+ * const TODO: Readonly<Todo> = {
+ *   title: "Delete inactive users",
+ * };
+ * 
+ * // TODO.title = "hello"; // uncomment here
+ * //      ^^^^^
+ * // Cannot assign to 'title' because it is a read-only property
+ * ```
+ */
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];
+}
+
+/**
+ * @description Constructs an object type whose property keys are `k` and
+ * whose property values are `T`. This utility can be used to map the
+ * properties of a type to another type.
+ * @example
+ * 
+ * ``` typescript
+ * type TestName =
+ *   | "a"
+ *   | "b"
+ *   | "c";
+ * 
+ * interface TestInfo {
+ *   age: number;
+ *   breed: string;
+ * }
+ * 
+ * type Test: Record<TestName, TestInfo>;
+ */
+type Record<K extends keyof any, T> = {
+  [P in K]: T;
+}
