@@ -133,7 +133,33 @@ type Readonly<T> = {
  * }
  * 
  * type Test: Record<TestName, TestInfo>;
+ * // type Test = {
+ * //   a: TestInfo;
+ * //   b: TestInfo;
+ * //   c: TestInfo;
+ * // }
  */
 type Record<K extends keyof any, T> = {
   [P in K]: T;
 }
+
+/**
+ * @description Constructs a type by excluding from `T` all union members that
+ * are assignable to `U`.
+ * @example
+ * 
+ * ``` typescript
+ * type T = Exclude<"a" | "b" | "c", "a">;  // type T = "b" | "c"
+ * ```
+ */
+type Exclude<T, U> = T extends U ? never : T;
+
+/**
+ * @description Constructs a type by picking the set of properties `K` (string
+ * literals or union of string literals) from `T`
+ */
+type Pick<T, K extends keyof T> = {
+  [P in K]: T[P];
+}
+
+type Uppercase<S extends string> = intrinsic;
