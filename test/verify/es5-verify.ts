@@ -9,6 +9,17 @@ let testString2 = String.fromCharCode(222, 21);
 let testBoolean1 = Boolean<number>(12);
 let testBoolean1Value = testBoolean1.valueOf();
 
+// ------------ Array methods ------------
+
+let testArray1 = new Array(12);
+let testArray2 = new Array<number>(12);
+let testArray3 = new Array<string>("12", "io");
+let testArray4 = Array(12);
+let testArray5 = Array<number>(21);
+let testArray6 = Array<string>("12", "io");
+
+let testArray2Pop: number = testArray2.pop();
+
 // ------------ Utility Types ------------
 
 type PropsForPartial = {

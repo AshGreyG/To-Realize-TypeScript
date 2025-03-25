@@ -4,13 +4,15 @@ interface String {
 
 interface StringConstructor {
   new (value?: any): String;
+
   (value?: any): string;
+
   readonly prototype: String;
 
   /**
    * @description The `String.fromCharCode()` static method returns a
    * string created from the specified sequence of UTF-16 code units.
-   * @param {...number} codes Numbers between 0 and 65535(0xFFFF)
+   * @param codes Numbers between 0 and 65535(0xFFFF)
    * representing a UTF-16 code unit. Numbers greater than 0xFFFF are
    * truncated to the last 16 bits. No validity checks are performed.
    * @returns {string} A string of length of `codes` (denoted as `N`) 
@@ -18,7 +20,7 @@ interface StringConstructor {
    * 
    * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCharCode)
    */
-  fromCharCode: (...codes: number[]) => string;
+  fromCharCode(...codes: number[]): string;
 
   // `(value?: any): string` is a call signature, we can call with
   // `StringConstructor()`.
@@ -38,16 +40,127 @@ interface Boolean {
    * 
    * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean/valueOf)
    */
-  valueOf: () => boolean;
+  valueOf(): boolean;
 }
 
 interface BooleanConstructor {
   new (value?: any): Boolean;
+
   <T>(value?: T): boolean;
+
   readonly prototype: Boolean;
 }
 
 declare var Boolean: BooleanConstructor;
+
+interface ConcatArray<T> {
+  readonly length: number;
+  readonly [n: number]: T;
+  join(separator?: string): string;
+  slice(start?: number, end?: number): T[];
+}
+
+interface Array<T> {
+  /**
+   * Gets or sets the length of the array. This is a number one higher than the highest index in
+   * the array.
+   */
+  length: number;
+  /**
+   * @description Returns a string representation of an array.
+   * @returns {string} A string representation of an array
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
+   */
+  toString(): string;
+  /**
+   * @description Returns a string representation of an array. The elements are converted to string using
+   * their `toLocaleString` method.
+   * @returns {string} A string representation of an array using `toLocaleString` method.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toLocaleString)
+   */
+  toLocaleString(): string;
+  /**
+   * @description Removes the last element from an array and returns it.
+   * If the array is empty, `undefined` is returned and the array is not modified.
+   * @returns {T | undefined} The last element or nothing.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)
+   */
+  pop(): T | undefined;
+  /**
+   * @description Appends the new element to the end of an array, and returns the new length
+   * of the array.
+   * @param items New elements to add to the array.
+   * @returns Length of new array
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+   */
+  push(...items: T[]): number;
+  /**
+   * @description Combines two or more arrays. This method returns a new array
+   * without modifying any existing arrays.
+   * @param items Additional arrays and / or items to add to the end of the array
+   * @returns New array after concatting.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)
+   */
+  concat(...items: (T | ConcatArray<T>)[]): T[];
+  /**
+   * @description Adds all the elements of an array into a string, separated by the specified
+   * separator string.
+   * @param separator A string used to separate one element of the array.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join)
+   */
+  join(separator?: string): string;
+  /**
+   * @description Reverses the elements in an array in place. This method mutates the array 
+   * and returns a reference to the same array.
+   * @returns {T[]} The reference to the same array, but reversed.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)
+   */
+  reverse(): T[];
+  /**
+   * @description Removes the first element from an array an returns it. If the array is empty
+   * , `undefined` is returned and the array is not modified.
+   * @returns {T | undefined} The first element or nothing.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)
+   */
+  shift(): T | undefined;
+  /**
+   * @description Returns a copy of a section of an array.
+   * For both start and end, a negative index can be used to indicate an offset from the end of
+   * the array. For example, -2 refers to the second to lase element of the array.
+   * @param start The beginning index of the specified portion of the array. If `start` is 
+   * undefined, then the slice begins at index 0.
+   * @param end The end index of the specified portion of the array. This is exclusive of the
+   * element at the index `end`, If `end` is undefined, then the slice extends to the end of 
+   * the array.
+   * @returns {T[]} A copy of a section of an array.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+   */
+  slice(start?: number, end?: number): T[];
+}
+
+interface ArrayConstructor {
+  new (arrayLength?: number): any[];
+  new <T>(arrayLength?: number): T[];
+  new <T>(...items: T[]): T[];
+
+  (arrayLength?: number): any[];
+  <T>(arrayLength?: number): T[];
+  <T>(...items: T[]): T[];
+
+  isArray(arg: any): arg is any[];
+  readonly prototype: any[];
+}
+
+declare var Array: ArrayConstructor;
 
 // ------------------ Utility Types ------------------
 
