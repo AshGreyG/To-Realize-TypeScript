@@ -1,3 +1,34 @@
+/**
+ * Creates a new function.
+ */
+interface Function {
+  /**
+   * @description Calls the function, substituting the specified object
+   * for the this value of the function, and the specified array for the
+   * arguments of the function.
+   * @param thisArg The object to be used as the this object.
+   * @param argArray A set of arguments to be passed to the function.
+   * @returns {any} The result is determined by this function.
+   * 
+   * This function is almost identical to `call()`, except that the function
+   * arguments are passed to `call()` individually as a list, while for `apply()`
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+   */
+  apply(this: Function, thisArg: any, argArray?: any): any;
+  /**
+   * @description Calls a method of an object, substituting another object for
+   * the current object.
+   * @param thisArg The object to be used as the this object.
+   * @param argArray A set of arguments to be passed to the function.
+   * @returns {any} The result is determined by this function.
+   * 
+   * [Mozilla Doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call)
+   */
+  call(this: Function, thisArg: any, ...argArray: any[]): any;
+}
+
+
 interface String {
   
 }
