@@ -1,3 +1,16 @@
+declare type PropertyKey = string | number | symbol;
+
+interface Object {
+  /** The initial value of Object.prototype.constructor is the standard built-in Object constructor */
+  constructor: Function;
+
+  /** Returns a string representation of an object */
+  toString(): string;
+
+  /** Returns a date converted to a string using the current locale */
+  toLocaleString(): string;
+}
+
 /**
  * Creates a new function.
  */
