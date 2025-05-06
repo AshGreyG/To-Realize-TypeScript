@@ -41,9 +41,31 @@ interface Function {
   call(this: Function, thisArg: any, ...argArray: any[]): any;
 }
 
+interface RegExpMatchArray extends Array<string> {
+  /** The index of the search at which the result was found. */
+  index?: number;
+  /** A copy of the search string. */
+  input?: string;
+  /** The first match. This will always be present because `null` will be returned if there are no matches */
+  0: string;
+}
+
+interface RegExp {
+
+}
 
 interface String {
-  
+  /**
+   * Returns the character at the specified index
+   * @param pos The zero-based index of the desired character.
+   */
+  charAt(pos: number): string;
+
+  /**
+   * Returns a string that contains the concatenation of two or more strings.
+   * @param strings The strings to append to the end of the string.
+   */
+  concat(...strings: string[]): string;
 }
 
 interface StringConstructor {
